@@ -1,13 +1,15 @@
 use crate::ram::Ram;
-
+use crate::cpu::Cpu;
 pub struct Chip8 {
-    ram: Ram
+    ram: Ram,
+    cpu: Cpu
 }
 
 impl Chip8 {
     pub fn new() -> Chip8 {
         Chip8 {
-            ram: Ram::new()
+            ram: Ram::new(),
+            cpu: Cpu::new()
         }
     }
 
@@ -17,4 +19,8 @@ impl Chip8 {
             self.ram.write_byte(offset+i as u16, rom[i])
         }
     } 
+
+    pub fn run_op(&mut self) {
+        self.cpu.run_instruction(&mut self.ram);
+    }
 }
