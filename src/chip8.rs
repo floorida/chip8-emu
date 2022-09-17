@@ -14,13 +14,13 @@ impl Chip8 {
     }
 
     pub fn load_rom(&mut self, rom: &Vec<u8>) {
-        let offset = 0x200;
         for i in 0..rom.len() {
-            self.ram.write_byte(offset+i as u16, rom[i])
+            self.ram.write_byte(0x200+i as u16, rom[i])
         }
     } 
 
     pub fn run_op(&mut self) {
-        self.cpu.run_instruction(&mut self.ram);
+        self.cpu.run_ops(&mut self.ram);
+        println!("{:?}", self.cpu);
     }
 }
